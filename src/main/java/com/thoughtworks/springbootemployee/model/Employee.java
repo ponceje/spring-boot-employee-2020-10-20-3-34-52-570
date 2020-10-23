@@ -6,7 +6,7 @@ import javax.persistence.*;
 //employee
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private int age;

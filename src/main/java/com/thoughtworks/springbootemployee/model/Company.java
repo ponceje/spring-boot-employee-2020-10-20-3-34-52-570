@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer companyId;
     private String companyName;
     private Integer employeeNumber;
