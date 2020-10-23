@@ -54,9 +54,10 @@ public class EmployeeService {
         return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
-    public List<Employee> getByPage(int page, int pageSize) {
+    public List<EmployeeResponse> getByPage(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page,pageSize);
-        return repository.findAll(pageable).toList();
+        List<Employee> employees = repository.findAll(pageable).toList();
+        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
     public Optional<Employee> getById(Integer id) {
