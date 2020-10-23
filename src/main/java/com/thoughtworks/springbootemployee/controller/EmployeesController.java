@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.model.EmployeeRequest;
 import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,8 @@ public class EmployeesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee create(@RequestBody Employee employee) {
-        employeeService.create(employee);
-        return employee;
+    public EmployeeResponse create(@RequestBody EmployeeRequest employeeRequest) {
+        return employeeService.create(employeeRequest);
     }
 
     @GetMapping("/{employeeId}")
