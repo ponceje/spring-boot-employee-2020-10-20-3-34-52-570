@@ -60,10 +60,10 @@ public class EmployeeService {
         return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
-    public Optional<Employee> getById(Integer id) {
+    public EmployeeResponse getById(Integer id) {
         Optional<Employee> employee = repository.findById(id);
         if(employee.isPresent()){
-            return employee;
+            return employeeMapper.toResponse(employee.get());
         }
         throw new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND);
     }
