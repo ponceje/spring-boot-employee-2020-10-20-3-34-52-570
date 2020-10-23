@@ -11,4 +11,4 @@ spring:
     console:
       enabled: true
 server:
-  port: 9999
+  port: 6969
