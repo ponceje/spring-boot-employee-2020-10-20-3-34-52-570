@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.model.EmployeeRequest;
 import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +31,9 @@ public class EmployeeService {
         return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
-    public Employee create(Employee employee) {
-        return repository.save(employee);
+    public EmployeeResponse create(EmployeeRequest employeeRequest) {
+        Employee saveEmployee = repository.save(employeeMapper.toEntity(employeeRequest));
+        return employeeMapper.toResponse(saveEmployee);
     }
 
     public void delete(Integer employeeId) {
