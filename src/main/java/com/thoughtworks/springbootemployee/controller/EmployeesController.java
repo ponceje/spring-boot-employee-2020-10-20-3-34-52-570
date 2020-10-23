@@ -31,7 +31,7 @@ public class EmployeesController {
     }
 
     @GetMapping("/{employeeId}")
-    public Optional<Employee> get(@PathVariable Integer employeeId) {
+    public EmployeeResponse get(@PathVariable Integer employeeId) {
         return employeeService.getById(employeeId);
     }
 
