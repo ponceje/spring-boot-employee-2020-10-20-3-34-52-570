@@ -78,10 +78,6 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$.age").value(20))
                 .andExpect(jsonPath("$.gender").value("male"))
                 .andExpect(jsonPath("$.salary").value(10000));
-
-        List<Employee> employees = employeeRepository.findAll();
-        assertEquals(1,employees.size());
-        assertEquals("Christian",employees.get(0).getName());
     }
 
     @Test
@@ -122,9 +118,6 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$.age").value(20))
                 .andExpect(jsonPath("$.gender").value("male"))
                 .andExpect(jsonPath("$.salary").value(10000));
-
-        Employee employeeActual = employeeRepository.findById(1).get();
-        assertEquals("Christian Tayag",employeeActual.getName());
     }
 
     @Test
@@ -155,10 +148,6 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$[0].age").value(20))
                 .andExpect(jsonPath("$[0].gender").value("male"))
                 .andExpect(jsonPath("$[0].salary").value(10000));
-
-        List<Employee> employees = employeeRepository.findByGender("male");
-        assertEquals(2,employees.size());
-        assertEquals("Christian",employees.get(0).getName());
     }
 
     @Test
@@ -177,9 +166,5 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$[0].age").value(20))
                 .andExpect(jsonPath("$[0].gender").value("male"))
                 .andExpect(jsonPath("$[0].salary").value(10000));
-
-        List<Employee> employees = employeeRepository.findByGender("male");
-        assertEquals(2,employees.size());
-        assertEquals("Christian",employees.get(0).getName());
     }
 }
