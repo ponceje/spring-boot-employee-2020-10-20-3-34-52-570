@@ -26,45 +26,37 @@ public class EmployeeService {
         this.employeeMapper = new EmployeeMapper();
     }
 
-    public List<EmployeeResponse> getAll() {
-        List<Employee> employees = repository.findAll();
-        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+    public List<Employee> getAll() {
+        return repository.findAll();
     }
 
-    public EmployeeResponse create(EmployeeRequest employeeRequest) {
-        Employee saveEmployee = repository.save(employeeMapper.toEntity(employeeRequest));
-        return employeeMapper.toResponse(saveEmployee);
+    public Employee create(Employee employee) {
+        return repository.save(employee);
     }
 
     public void delete(Integer employeeId) {
         repository.deleteById(employeeId);
     }
 
-    public EmployeeResponse update(Integer employeeId, EmployeeRequest employeeRequest) {
-        if(getById(employeeId) != null){
-            Employee employee = employeeMapper.toEntity(employeeRequest);
-            employee.setId(employeeId);
-            return employeeMapper.toResponse(repository.save(employee));
+    public Employee update(Integer employeeId, Employee employeeRequest) {
+        if(repository.findById(employeeId).isPresent()){
+            employeeRequest.setId(employeeId);
+            return repository.save(employeeRequest);
         }
         throw new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND);
     }
 
-    public List<EmployeeResponse> getByGender(String gender) {
-        List<Employee> employees = repository.findByGender(gender);
-        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+    public List<Employee> getByGender(String gender) {
+        return repository.findByGender(gender);
     }
 
-    public List<EmployeeResponse> getByPage(int page, int pageSize) {
+    public List<Employee> getByPage(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page,pageSize);
-        List<Employee> employees = repository.findAll(pageable).toList();
-        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+        return repository.findAll(pageable).toList();
     }
 
-    public EmployeeResponse getById(Integer id) {
-        Optional<Employee> employee = repository.findById(id);
-        if(employee.isPresent()){
-            return employeeMapper.toResponse(employee.get());
-        }
-        throw new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND);
+    public Employee getById(Integer employeeId) {
+        return repository.findById(employeeId)
+                .orElseThrow(() -> new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND));
     }
 }
