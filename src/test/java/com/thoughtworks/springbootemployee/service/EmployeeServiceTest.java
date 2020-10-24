@@ -77,17 +77,18 @@ class EmployeeServiceTest {
         Assertions.assertEquals(2, actual.size());
     }
 
-//    @Test
-//    void should_get_correct_page_size_when_given_getPage_employee_request() {
-//        //GIVEN
-//        when(repository.getByPage(1, 5)).thenReturn(expectedEmployees);
-//        EmployeeService service = new EmployeeService(repository);
-//        //WHEN
-//        List<Employee> actual = service.getByPage(1, 5);
-//        //THEN
-//        Assertions.assertEquals(2, actual.size());
-//    }
-//
+    @Test
+    void should_get_correct_page_size_when_given_getPage_employee_request() {
+        //GIVEN
+        Page<Employee> employeePage = new PageImpl<Employee>(expectedEmployees);
+        Pageable pageable = PageRequest.of(1,3);
+        when(employeeRepository.findAll(pageable)).thenReturn(employeePage);
+        //WHEN
+        List<Employee> employeeActual = employeeService.getByPage(1,3);
+        //THEN
+        Assertions.assertEquals(2, employeeActual.size());
+    }
+
 //    @Test
 //    void should_get_employee_with_correct_id_when_search_given_employee_request() {
 //        //GIVEN
