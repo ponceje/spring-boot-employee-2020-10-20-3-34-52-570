@@ -15,15 +15,15 @@ import static org.mockito.Mockito.*;
 
 class EmployeeServiceTest {
     //Givens
-    EmployeeRepository repository = Mockito.mock(EmployeeRepository.class);
+    EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
     Employee employeeRequest = new Employee(1, "junjun", 10, "male", 200);
     List<Employee> expectedEmployees = asList(new Employee(), new Employee());
 
     @Test
     void should_get_all_when_get_employees() {
         //GIVEN
-        when(repository.findAll()).thenReturn(expectedEmployees);
-        EmployeeService service = new EmployeeService(repository);
+        when(employeeRepository.findAll()).thenReturn(expectedEmployees);
+        EmployeeService service = new EmployeeService(employeeRepository);
         //WHEN
         List<Employee> actual = service.getAll();
         //THEN
@@ -33,8 +33,8 @@ class EmployeeServiceTest {
     @Test
     void should_create_employee_when_create_given_employee_request() {
         //GIVEN
-        when(repository.save(employeeRequest)).thenReturn(employeeRequest);
-        EmployeeService employeeService = new EmployeeService(repository);
+        when(employeeRepository.save(employeeRequest)).thenReturn(employeeRequest);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
         //WHEN
         Employee actual = employeeService.create(employeeRequest);
         //THEN
@@ -44,11 +44,11 @@ class EmployeeServiceTest {
     @Test
     void should_delete_employee_when_delete_given_employee_request() {
         //given
-        EmployeeService employeeService = new EmployeeService(repository);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
         // when
         employeeService.delete(1);
         //then
-        verify(repository).deleteById(1);
+        verify(employeeRepository).deleteById(1);
 
     }
 
