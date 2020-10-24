@@ -23,6 +23,7 @@ class EmployeeServiceTest {
     EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
     Employee employeeRequest = new Employee(1, "junjun", 10, "male", 200);
     List<Employee> expectedEmployees = asList(new Employee(), new Employee());
+    EmployeeService employeeService= new EmployeeService(employeeRepository);
 
     @Test
     void should_get_all_when_get_employees() {
