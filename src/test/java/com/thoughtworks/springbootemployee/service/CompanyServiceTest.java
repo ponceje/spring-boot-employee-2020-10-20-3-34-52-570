@@ -26,7 +26,7 @@ class CompanyServiceTest {
     EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
     List<Company> expectedCompanies = asList(new Company(),new Company());
     List<Employee> employees = asList(new Employee(), new Employee());
-    Company companyRequest = new Company(1,"Alibaba",200,employees);
+    Company companyRequest = new Company(1,"Alibaba",employees);
     CompanyService companyService = new CompanyService(companyRepository,employeeRepository);
 
     @Test

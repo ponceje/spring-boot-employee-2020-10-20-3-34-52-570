@@ -10,6 +10,7 @@ public class CompanyMapper {
         CompanyResponse companyResponse = new CompanyResponse();
 
         BeanUtils.copyProperties(company, companyResponse);
+        companyResponse.setEmployeeNum(company.getEmployees().size());
         return companyResponse;
     }
 
