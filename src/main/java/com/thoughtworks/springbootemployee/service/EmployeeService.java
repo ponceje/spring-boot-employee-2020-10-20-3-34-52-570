@@ -58,11 +58,8 @@ public class EmployeeService {
         return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
-    public EmployeeResponse getById(Integer id) {
-        Optional<Employee> employee = repository.findById(id);
-        if(employee.isPresent()){
-            return employeeMapper.toResponse(employee.get());
-        }
-        throw new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND);
+    public Employee getById(Integer employeeId) {
+        return repository.findById(employeeId)
+                .orElseThrow(() -> new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND));
     }
 }
