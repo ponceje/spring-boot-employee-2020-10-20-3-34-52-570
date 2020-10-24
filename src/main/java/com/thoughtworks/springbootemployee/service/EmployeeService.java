@@ -46,9 +46,8 @@ public class EmployeeService {
         throw new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND);
     }
 
-    public List<EmployeeResponse> getByGender(String gender) {
-        List<Employee> employees = repository.findByGender(gender);
-        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+    public List<Employee> getByGender(String gender) {
+        return repository.findByGender(gender);
     }
 
     public List<EmployeeResponse> getByPage(int page, int pageSize) {

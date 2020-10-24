@@ -54,7 +54,8 @@ public class EmployeesController {
 
     @GetMapping(params = "gender")
     public List<EmployeeResponse> getByGender(@RequestParam("gender") String gender){
-        return  employeeService.getByGender(gender);
+        List<Employee> byGender = employeeService.getByGender(gender);
+        return byGender.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
     @GetMapping(params = {"page" , "pageSize"})
