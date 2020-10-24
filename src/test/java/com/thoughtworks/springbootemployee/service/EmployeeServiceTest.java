@@ -29,7 +29,6 @@ class EmployeeServiceTest {
     void should_get_all_when_get_employees() {
         //GIVEN
         when(employeeRepository.findAll()).thenReturn(expectedEmployees);
-        EmployeeService service = new EmployeeService(employeeRepository);
         //WHEN
         List<Employee> actual = service.getAll();
         //THEN
@@ -40,7 +39,6 @@ class EmployeeServiceTest {
     void should_create_employee_when_create_given_employee_request() {
         //GIVEN
         when(employeeRepository.save(employeeRequest)).thenReturn(employeeRequest);
-        EmployeeService employeeService = new EmployeeService(employeeRepository);
         //WHEN
         Employee actual = employeeService.create(employeeRequest);
         //THEN
@@ -50,7 +48,7 @@ class EmployeeServiceTest {
     @Test
     void should_delete_employee_when_delete_given_employee_request() {
         //given
-        EmployeeService employeeService = new EmployeeService(employeeRepository);
+
         // when
         employeeService.delete(1);
         //then
@@ -63,8 +61,7 @@ class EmployeeServiceTest {
         //GIVEN
         when(employeeRepository.findById(1)).thenReturn(Optional.of(employeeRequest));
         //WHEN
-        EmployeeService employeeService = new EmployeeService(employeeRepository);
-        Employee actual = employeeService.update(1, employeeRequest);
+        employeeService.update(1, employeeRequest);
         //THEN
         verify(employeeRepository).save(employeeRequest);
     }
