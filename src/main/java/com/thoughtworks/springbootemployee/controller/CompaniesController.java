@@ -1,25 +1,31 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.mapper.CompanyMapper;
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.CompanyResponse;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
 public class CompaniesController {
     private CompanyService companyService;
+    private CompanyMapper companyMapper;
 
-    public CompaniesController(CompanyService companyService) {
+    public CompaniesController(CompanyService companyService, CompanyMapper companyMapper) {
         this.companyService = companyService;
+        this.companyMapper = companyMapper;
     }
 
     @GetMapping
-    public List<Company> getAll() {
-        return companyService.getAll();
+    public List<CompanyResponse> getAll() {
+        List<Company> company = companyService.getAll();
+        return company.stream().map(companyMapper::toResponse).collect(Collectors.toList());
     }
 
     @PostMapping
