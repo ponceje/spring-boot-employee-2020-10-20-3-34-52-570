@@ -7,7 +7,6 @@ public class CompanyResponse {
 
     private Integer companyId;
     private String companyName;
-    private Integer employeeNumber;
     private List<Employee> employees;
 
     public CompanyResponse() {
@@ -40,13 +39,5 @@ public class CompanyResponse {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
-    }
-
-    public void setEmployeeNumber(Integer employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
-
-    public Integer getEmployeeNumber() {
-        return employees.size();
     }
 }
