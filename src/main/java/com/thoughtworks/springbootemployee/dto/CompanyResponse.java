@@ -1,25 +1,22 @@
-package com.thoughtworks.springbootemployee.model;
+package com.thoughtworks.springbootemployee.dto;
 
-import javax.persistence.*;
+import com.thoughtworks.springbootemployee.entity.Employee;
+
 import java.util.List;
 
-@Entity
-public class Company {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CompanyResponse {
+
     private Integer companyId;
     private String companyName;
-    //removed employee
-
-    @OneToMany(orphanRemoval = true,fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "company_id")
     private List<Employee> employees;
+    private Integer employeeNum;
 
-    public Company() {
+    public CompanyResponse() {
     }
 
-    public Company(Integer companyId,String companyName, List<Employee> employees) {
+    public CompanyResponse(Integer companyId, String companyName, Integer employeeNum, List<Employee> employees) {
         this.companyName = companyName;
+        this.employeeNum = employeeNum;
         this.employees = employees;
     }
 
@@ -45,5 +42,13 @@ public class Company {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public Integer getEmployeeNum() {
+        return employeeNum;
+    }
+
+    public void setEmployeeNum(Integer employeeNum) {
+        this.employeeNum = employeeNum;
     }
 }
