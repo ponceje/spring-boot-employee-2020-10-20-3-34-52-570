@@ -91,7 +91,7 @@ public class EmployeeIntegrationTest {
         employeeRepository.save(employee);
 
         // when then
-        mockMvc.perform(get("/employees/{employeeId}",1))
+        mockMvc.perform(get("/employees/{employeeId}",employeeRepository.findAll().get(0).getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("Christian"))
@@ -113,7 +113,7 @@ public class EmployeeIntegrationTest {
                 "}";
 
         // when then
-        mockMvc.perform(put("/employees/{employeeId}",1)
+        mockMvc.perform(put("/employees/{employeeId}",employeeRepository.findAll().get(0).getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(employeeAsJsoin))
                 .andExpect(status().isOk())
