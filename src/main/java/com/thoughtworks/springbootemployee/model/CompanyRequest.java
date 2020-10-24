@@ -1,18 +1,18 @@
 package com.thoughtworks.springbootemployee.model;
 
-import javax.persistence.*;
 import java.util.List;
 
 public class CompanyRequest {
 
     private String companyName;
-    //removed employee
+    private List<Employee> employees;
 
     public CompanyRequest() {
     }
 
-    public CompanyRequest(String companyName) {
+    public CompanyRequest(String companyName, List<Employee> employees) {
         this.companyName = companyName;
+        this.employees = employees;
     }
 
     public String getCompanyName() {
@@ -23,4 +23,11 @@ public class CompanyRequest {
         this.companyName = companyName;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 }

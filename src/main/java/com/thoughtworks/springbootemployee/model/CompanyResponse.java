@@ -1,6 +1,5 @@
 package com.thoughtworks.springbootemployee.model;
 
-import javax.persistence.*;
 import java.util.List;
 
 public class CompanyResponse {
@@ -8,12 +7,14 @@ public class CompanyResponse {
     private Integer companyId;
     private String companyName;
     private List<Employee> employees;
+    private Integer employeeNum;
 
     public CompanyResponse() {
     }
 
-    public CompanyResponse(Integer companyId, String companyName, List<Employee> employees) {
+    public CompanyResponse(Integer companyId, String companyName, Integer employeeNum, List<Employee> employees) {
         this.companyName = companyName;
+        this.employeeNum = employeeNum;
         this.employees = employees;
     }
 
@@ -39,5 +40,13 @@ public class CompanyResponse {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public Integer getEmployeeNum() {
+        return employeeNum;
+    }
+
+    public void setEmployeeNum(Integer employeeNum) {
+        this.employeeNum = employeeNum;
     }
 }
