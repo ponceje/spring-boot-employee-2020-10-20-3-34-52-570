@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.model.EmployeeRequest;
 import com.thoughtworks.springbootemployee.model.EmployeeResponse;
@@ -9,19 +10,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeesController {
     EmployeeService employeeService;
+    private final EmployeeMapper employeeMapper;
 
-    public EmployeesController(EmployeeService employeeService) {
+    public EmployeesController(EmployeeService employeeService, EmployeeMapper employeeMapper) {
         this.employeeService = employeeService;
+        this.employeeMapper = employeeMapper;
     }
 
     @GetMapping
     public List<EmployeeResponse> getAll() {
-        return employeeService.getAll();
+        List<Employee> employees = employeeService.getAll();
+        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
     @PostMapping

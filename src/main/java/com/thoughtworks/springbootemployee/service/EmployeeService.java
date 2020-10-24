@@ -26,9 +26,8 @@ public class EmployeeService {
         this.employeeMapper = new EmployeeMapper();
     }
 
-    public List<EmployeeResponse> getAll() {
-        List<Employee> employees = repository.findAll();
-        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+    public List<Employee> getAll() {
+        return repository.findAll();
     }
 
     public EmployeeResponse create(EmployeeRequest employeeRequest) {
