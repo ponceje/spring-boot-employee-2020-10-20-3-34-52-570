@@ -89,16 +89,13 @@ class EmployeeServiceTest {
         Assertions.assertEquals(2, employeeActual.size());
     }
 
-//    @Test
-//    void should_get_employee_with_correct_id_when_search_given_employee_request() {
-//        //GIVEN
-//        when(repository.getB(1)).thenReturn(employeeRequest);
-//        //WHEN
-//        EmployeeService employeeService = new EmployeeService(repository);
-//        Employee actual = employeeService.getById(1).get();
-//        //THEN
-//        Assertions.assertEquals(1, actual.getId());
-//    }
-//
-//
+    @Test
+    void should_get_employee_with_correct_id_when_search_given_employee_request() {
+        //GIVEN
+        when(employeeRepository.findById(1)).thenReturn(Optional.of(employeeRequest));
+        //WHEN
+        Employee actual = employeeService.getById(1);
+        //THEN
+        Assertions.assertEquals(1, actual.getId());
+    }
 }
