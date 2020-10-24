@@ -48,7 +48,7 @@ class EmployeeServiceTest {
     @Test
     void should_delete_employee_when_delete_given_employee_request() {
         //given
-
+        when(employeeRepository.findById(1)).thenReturn(Optional.of(employeeRequest));
         // when
         employeeService.delete(1);
         //then
