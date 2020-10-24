@@ -39,10 +39,10 @@ public class CompanyService {
     }
 
     public Company update(Integer companyId, Company companyUpdate){
-        if (findByCompanyId(companyId)!=null){
-            companyUpdate.getEmployees().forEach(employeeRepository::save);
-            companyUpdate.setCompanyId(companyId);
-            return companyRepository.save(companyUpdate);
+        Company company = findByCompanyId(companyId);
+        if (company!=null){
+            company.setCompanyName(companyUpdate.getCompanyName());
+            return companyRepository.save(company);
         }
         throw new CompanyNotFoundException(COMPANY_NOT_FOUND);
     }
