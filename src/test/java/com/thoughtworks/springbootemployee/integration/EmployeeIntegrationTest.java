@@ -84,10 +84,10 @@ public class EmployeeIntegrationTest {
     void should_return_employee_when_getById_given_employeeId() throws Exception {
         // given
         Employee employee = new Employee(1,"Christian",20,"male",10000);
-        employeeRepository.save(employee);
+        Integer employeeId = employeeRepository.save(employee).getId();
 
         // when then
-        mockMvc.perform(get("/employees/{employeeId}",employeeRepository.findAll().get(0).getId()))
+        mockMvc.perform(get("/employees/{employeeId}",employeeId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("Christian"))
@@ -100,7 +100,7 @@ public class EmployeeIntegrationTest {
     void should_update_employee_when_update_given_employee_request() throws Exception {
         // given
         Employee employee = new Employee(1,"Christian",20,"male",10000);
-        employeeRepository.save(employee);
+        Integer employeeId = employeeRepository.save(employee).getId();
         String employeeAsJsoin = "{\n" +
                 "        \"name\":\"Christian Tayag\",\n" +
                 "        \"age\":20,\n" +
@@ -109,7 +109,7 @@ public class EmployeeIntegrationTest {
                 "}";
 
         // when then
-        mockMvc.perform(put("/employees/{employeeId}",employeeRepository.findAll().get(0).getId())
+        mockMvc.perform(put("/employees/{employeeId}",employeeId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(employeeAsJsoin))
                 .andExpect(status().isOk())
