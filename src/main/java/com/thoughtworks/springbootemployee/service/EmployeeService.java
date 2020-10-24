@@ -38,11 +38,10 @@ public class EmployeeService {
         repository.deleteById(employeeId);
     }
 
-    public EmployeeResponse update(Integer employeeId, EmployeeRequest employeeRequest) {
-        if(getById(employeeId) != null){
-            Employee employee = employeeMapper.toEntity(employeeRequest);
-            employee.setId(employeeId);
-            return employeeMapper.toResponse(repository.save(employee));
+    public Employee update(Integer employeeId, Employee employeeRequest) {
+        if(repository.findById(employeeId).isPresent()){
+            employeeRequest.setId(employeeId);
+            return repository.save(employeeRequest);
         }
         throw new EmployeeNotFoundException(EMPLOYEE_NOT_FOUND);
     }
