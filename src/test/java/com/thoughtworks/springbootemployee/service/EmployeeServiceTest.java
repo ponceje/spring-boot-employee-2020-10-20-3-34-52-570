@@ -41,17 +41,17 @@ class EmployeeServiceTest {
         Assertions.assertEquals(1, actual.getId());
     }
 
-//    @Test
-//    void should_delete_employee_when_delete_given_employee_request() {
-//        //given
-//        EmployeeService employeeService = new EmployeeService(repository);
-//        // when
-//        employeeService.delete(1);
-//        //then
-//        verify(repository).delete(1);
-//
-//    }
-//
+    @Test
+    void should_delete_employee_when_delete_given_employee_request() {
+        //given
+        EmployeeService employeeService = new EmployeeService(repository);
+        // when
+        employeeService.delete(1);
+        //then
+        verify(repository).deleteById(1);
+
+    }
+
 //    @Test
 //    void should_get_updated_employeeId_when_update_given_employee_request() {
 //        //GIVEN
