@@ -50,10 +50,9 @@ public class EmployeeService {
         return repository.findByGender(gender);
     }
 
-    public List<EmployeeResponse> getByPage(int page, int pageSize) {
+    public List<Employee> getByPage(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page,pageSize);
-        List<Employee> employees = repository.findAll(pageable).toList();
-        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+        return repository.findAll(pageable).toList();
     }
 
     public Employee getById(Integer employeeId) {

@@ -5,6 +5,8 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.model.EmployeeRequest;
 import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,7 +62,8 @@ public class EmployeesController {
 
     @GetMapping(params = {"page" , "pageSize"})
     public List<EmployeeResponse> getByPage(@RequestParam() int page,@RequestParam() int pageSize){
-        return employeeService.getByPage(page,pageSize);
+        List<Employee> employees = employeeService.getByPage(page, pageSize);
+        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
 }
