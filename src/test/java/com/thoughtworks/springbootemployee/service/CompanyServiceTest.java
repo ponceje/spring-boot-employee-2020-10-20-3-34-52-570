@@ -20,8 +20,6 @@ import static org.mockito.Mockito.*;
 
 class CompanyServiceTest {
 
-    //Givens
-    //should use @Before
     CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
     EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
     List<Company> expectedCompanies = asList(new Company(),new Company());
@@ -63,11 +61,11 @@ class CompanyServiceTest {
     void should_get_updated_company_when_update_given_company_request(){
         //GIVEN
         when(companyRepository.findById(1)).thenReturn(Optional.of(companyRequest));
-        Company actual = companyService.findByCompanyId(1);
         //WHEN
         Company actualUpdate = companyService.update(1, companyRequest);
         //THEN
         verify(companyRepository).save(companyRequest);
+        Assertions.assertEquals(companyRequest,actualUpdate);
     }
 
     @Test
@@ -83,7 +81,7 @@ class CompanyServiceTest {
     @Test
     void should_get_company_when_getByPage_given_company_request() {
         //GIVEN
-        Page<Company> companyPage = new PageImpl<Company>(expectedCompanies);
+        Page<Company> companyPage = new PageImpl<>(expectedCompanies);
         Pageable pageable = PageRequest.of(1,3);
         when(companyRepository.findAll(pageable)).thenReturn(companyPage);
         //WHEN
