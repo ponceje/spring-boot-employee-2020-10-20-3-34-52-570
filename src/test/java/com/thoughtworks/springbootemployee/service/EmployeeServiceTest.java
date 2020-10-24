@@ -64,17 +64,17 @@ class EmployeeServiceTest {
         verify(employeeRepository).save(employeeRequest);
     }
 
-//    @Test
-//    void should_get_employee_with_correct_gender_when_search_given_employee_request() {
-//        //GIVEN
-//        when(repository.getByGender("male")).thenReturn(expectedEmployees);
-//        //WHEN
-//        EmployeeService employeeService = new EmployeeService(repository);
-//        List<Employee> actual = employeeService.getByGender("male");
-//        //THEN
-//        Assertions.assertEquals(2, actual.size());
-//    }
-//
+    @Test
+    void should_get_employee_with_correct_gender_when_search_given_employee_request() {
+        //GIVEN
+        when(employeeRepository.findByGender("male")).thenReturn(expectedEmployees);
+        //WHEN
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+        List<Employee> actual = employeeService.getByGender("male");
+        //THEN
+        Assertions.assertEquals(2, actual.size());
+    }
+
 //    @Test
 //    void should_get_correct_page_size_when_given_getPage_employee_request() {
 //        //GIVEN
