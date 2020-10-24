@@ -30,9 +30,8 @@ public class EmployeeService {
         return repository.findAll();
     }
 
-    public EmployeeResponse create(EmployeeRequest employeeRequest) {
-        Employee saveEmployee = repository.save(employeeMapper.toEntity(employeeRequest));
-        return employeeMapper.toResponse(saveEmployee);
+    public Employee create(Employee employee) {
+        return repository.save(employee);
     }
 
     public void delete(Integer employeeId) {
