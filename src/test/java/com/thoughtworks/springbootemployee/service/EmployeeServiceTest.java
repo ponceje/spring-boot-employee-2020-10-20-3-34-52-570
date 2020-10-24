@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
@@ -52,17 +53,17 @@ class EmployeeServiceTest {
 
     }
 
-//    @Test
-//    void should_get_updated_employeeId_when_update_given_employee_request() {
-//        //GIVEN
-//        when(repository.update(1, employeeRequest)).thenReturn(employeeRequest);
-//        //WHEN
-//        EmployeeService employeeService = new EmployeeService(repository);
-//        Employee actual = employeeService.update(1, employeeRequest);
-//        //THEN
-//        Assertions.assertEquals(1, actual.getId());
-//    }
-//
+    @Test
+    void should_get_updated_employeeId_when_update_given_employee_request() {
+        //GIVEN
+        when(employeeRepository.findById(1)).thenReturn(Optional.of(employeeRequest));
+        //WHEN
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+        Employee actual = employeeService.update(1, employeeRequest);
+        //THEN
+        verify(employeeRepository).save(employeeRequest);
+    }
+
 //    @Test
 //    void should_get_employee_with_correct_gender_when_search_given_employee_request() {
 //        //GIVEN
