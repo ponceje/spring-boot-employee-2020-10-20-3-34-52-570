@@ -30,7 +30,7 @@ class EmployeeServiceTest {
         //GIVEN
         when(employeeRepository.findAll()).thenReturn(expectedEmployees);
         //WHEN
-        List<Employee> actual = service.getAll();
+        List<Employee> actual = employeeService.getAll();
         //THEN
         Assertions.assertEquals(2, actual.size());
     }
