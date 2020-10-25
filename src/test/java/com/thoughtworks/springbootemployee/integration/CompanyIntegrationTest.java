@@ -1,5 +1,7 @@
 package com.thoughtworks.springbootemployee.integration;
 
+import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import java.util.Collections;
+import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,28 +36,8 @@ public class CompanyIntegrationTest {
     @Test
     void should_return_companies_when_getAll() throws Exception {
         //GIVEN
-        String companyJson = "{\n" +
-                "    \"companyName\": \"OOCL\",\n" +
-                "     \"employees\": [\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "            \n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "        }\n" +
-                "        ]\n" +
-                "}";
-        mockMvc.perform(post("/companies")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(companyJson))
-                .andExpect(status().isCreated());
+        Company company = new Company(1,"OOCL", Collections.emptyList());
+        companyRepository.save(company);
         //WHEN and THEN
         mockMvc.perform(get("/companies"))
                 .andExpect(status().isOk())
@@ -83,8 +68,8 @@ public class CompanyIntegrationTest {
                 "        }\n" +
                 "        ]\n" +
                 "}";
-        //WHEN and THEN
 
+        //WHEN and THEN
         mockMvc.perform(post("/companies")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(companyJson))
@@ -98,28 +83,8 @@ public class CompanyIntegrationTest {
     @Test
     void should_return_companies_when_getById() throws Exception {
         //GIVEN
-        String companyJson = "{\n" +
-                "    \"companyName\": \"OOCL\",\n" +
-                "     \"employees\": [\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "            \n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "        }\n" +
-                "        ]\n" +
-                "}";
-        mockMvc.perform(post("/companies")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(companyJson))
-                .andExpect(status().isCreated());
+        Company company = new Company(1,"OOCL", Collections.emptyList());
+        companyRepository.save(company);
 
         //WHEN and THEN
         mockMvc.perform(get("/companies/{companyId}",companyRepository.findAll().get(0).getCompanyId()))
@@ -132,29 +97,9 @@ public class CompanyIntegrationTest {
 
     @Test
     void should_return_company_when_update() throws Exception {
-        //GIVEN
-        String companyJson = "{\n" +
-                "    \"companyName\": \"OOCL\",\n" +
-                "     \"employees\": [\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "            \n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "        }\n" +
-                "        ]\n" +
-                "}";
-        mockMvc.perform(post("/companies")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(companyJson))
-                .andExpect(status().isCreated());
+//        //GIVEN
+        Company company = new Company(1,"OOCL", Collections.emptyList());
+        companyRepository.save(company);
 
         String companyJson1 = "{\n" +
                 "    \"companyName\": \"OOCL\",\n" +
@@ -189,59 +134,19 @@ public class CompanyIntegrationTest {
     @Test
     void should_return_company_when_delete() throws Exception {
         //GIVEN
-        String companyJson = "{\n" +
-                "    \"companyName\": \"OOCL\",\n" +
-                "     \"employees\": [\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "            \n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "        }\n" +
-                "        ]\n" +
-                "}";
-        mockMvc.perform(post("/companies")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(companyJson))
-                .andExpect(status().isCreated());
+        Company company = new Company(1,"OOCL", Collections.emptyList());
+        Integer id = companyRepository.save(company).getCompanyId();
 
         //WHEN and THEN
-        mockMvc.perform(get("/companies/{companyId}",companyRepository.findAll().get(0).getCompanyId()))
+        mockMvc.perform(get("/companies/{companyId}",id))
                 .andExpect(status().isOk());
     }
 
     @Test
     void should_return_company_when_getByPage() throws Exception {
         //GIVEN
-        String companyJson = "{\n" +
-                "    \"companyName\": \"OOCL\",\n" +
-                "     \"employees\": [\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "            \n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "        }\n" +
-                "        ]\n" +
-                "}";
-        mockMvc.perform(post("/companies")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(companyJson))
-                .andExpect(status().isCreated());
+        Company company = new Company(1,"OOCL", Collections.emptyList());
+        companyRepository.save(company).getCompanyId();
 
         //WHEN and THEN
         mockMvc.perform(get("/companies?page=0&pageSize=3"))
@@ -255,31 +160,18 @@ public class CompanyIntegrationTest {
     @Test
     void should_return_companies_when_getEmployees() throws Exception {
         //GIVEN
-        String companyJson = "{\n" +
-                "    \"companyName\": \"OOCL\",\n" +
-                "     \"employees\": [\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "            \n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"Bob Smith\",\n" +
-                "            \"age\": 10,\n" +
-                "            \"gender\": \"Male\",\n" +
-                "            \"salary\": 1000\n" +
-                "        }\n" +
-                "        ]\n" +
-                "}";
-        mockMvc.perform(post("/companies")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(companyJson))
-                .andExpect(status().isCreated());
+        Employee employee1 = new Employee();
+        employee1.setName("Kobe");
+        employee1.setGender("Male");
+        Employee employee2 = new Employee();
+        employee2.setName("Bryant");
+        employee2.setGender("Male");
+        List<Employee> employees = asList(employee1, employee2);
+        Company company = new Company(1,"OOCL", employees);
+        Integer id = companyRepository.save(company).getCompanyId();
 
         //WHEN and THEN
-        mockMvc.perform(get("/companies/{companyId}/employees",companyRepository.findAll().get(0).getCompanyId()))
+        mockMvc.perform(get("/companies/{companyId}/employees",id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isNumber())
                 .andExpect(jsonPath("$[0].name").isString())
